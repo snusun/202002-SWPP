@@ -5,7 +5,7 @@ import './RealDetail.css';
 class RealDetail extends Component {
   render() {
     return (
-      <div className="TodoDetail" >
+      <div className="RealDetail" >
         <div className="row">
           <div className="left">
             Name:
