@@ -34,6 +34,21 @@ describe('<NewTodo />', () => {
       </Provider>
     );
   })
+
+  it('should render NewTodo', () => {
+    const component = mount(newTodo);
+    const wrapper = component.find('.NewTodo');
+    expect(wrapper.length).toBe(1);
+  });
+
+  it(`should call 'postTodo'`, () => {
+    const spyPostTodo = jest.spyOn(actionCreators, 'postTodo')
+      .mockImplementation(td => { return dispatch => {}; });
+    const component = mount(newTodo);
+    const wrapper = component.find('button');
+    wrapper.simulate('click');
+    expect(spyPostTodo).toHaveBeenCalledTimes(1);
+  });
   
   it(`should set state properly on title input`, () => {
     const title = 'TEST_TITLE'
@@ -43,6 +58,16 @@ describe('<NewTodo />', () => {
     const newTodoInstance = component.find(NewTodo.WrappedComponent).instance();
     expect(newTodoInstance.state.title).toEqual(title);
     expect(newTodoInstance.state.content).toEqual('');
+  });
+
+  it(`should set state properly on content input`, () => {
+    const content = 'TEST_CONTENT'
+    const component = mount(newTodo);
+    const wrapper = component.find('textarea');
+    wrapper.simulate('change', { target: { value: content } });
+    const newTodoInstance = component.find(NewTodo.WrappedComponent).instance();
+    expect(newTodoInstance.state.title).toEqual('');
+    expect(newTodoInstance.state.content).toEqual(content);
   });
 });
 

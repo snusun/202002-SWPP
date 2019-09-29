@@ -60,5 +60,33 @@ describe('<TodoList />', () => {
     expect(wrapper.at(2).text()).toBe('TODO_TEST_TITLE_3');
     expect(spyGetTodos).toBeCalledTimes(1);
   });
+
+  it(`should call 'clickTodoHandler'`, () => {
+    const spyHistoryPush = jest.spyOn(history, 'push')
+      .mockImplementation(path => {});
+    const component = mount(todoList);
+    const wrapper = component.find('.spyTodo .title').at(0);
+    wrapper.simulate('click');
+    expect(spyHistoryPush).toHaveBeenCalledWith('/todos/1');
+  });
+
+  it(`should call 'clickDelete'`, () => {
+    const spyDeleteTodo = jest.spyOn(actionCreators, 'deleteTodo')
+      .mockImplementation(id => { return dispatch => {}; });
+    const component = mount(todoList);
+    const connectedRouter = component.find(ConnectedRouter);
+    const wrapper = component.find('.spyTodo .deleteButton').at(0);
+    wrapper.simulate('click');
+    expect(spyDeleteTodo).toHaveBeenCalledTimes(1);
+  });
+
+  it(`should call 'clickDone'`, () => {
+    const spyToggleTodo = jest.spyOn(actionCreators, 'toggleTodo')
+      .mockImplementation(id => { return dispatch => {}; });
+    const component = mount(todoList);
+    const wrapper = component.find('.spyTodo .doneButton').at(0);
+    wrapper.simulate('click');
+    expect(spyToggleTodo).toBeCalledTimes(1);
+  });
 });
 
