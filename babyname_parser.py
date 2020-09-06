@@ -46,7 +46,12 @@ def check_filename_existence(func):
         BabynameFileNotFoundException: if there is no such file named as the first argument of the function to decorate.
     """
     # TODO: Implement this decorator
-
+    def func_wrapper(*args, **kwargs):
+        try:
+            return func(*args, **kwargs)
+        except Exception:
+            raise BabynameFileNotFoundException("No such file: {}/{}.html".format(args[1], args[2])) # note that format
+    return func_wrapper
 
 class BabynameParser:
 
@@ -62,8 +67,11 @@ class BabynameParser:
             dirname: The name of the directory where baby name html files are stored
             year: The year number. int.
         """
+        self.year = year
 
-        text = "TODO" # TODO: Open and read html file of the corresponding year, and assign the content to `text`. 
+        pathname = os.path.join(dirname, "{}.html".format(year)) # TODO: Open and read html file of the corresponding year, and assign the content to `text`. 
+        with open(pathname) as f: 
+            text = f.read()
 
         # TODO: Implement the tuple extracting code.
         # `self.rank_to_names_tuples` should be a list of tuples of ("rank", "male name", "female name").
@@ -71,7 +79,17 @@ class BabynameParser:
         # (If you resolve the previous TODO, the html content is saved in `text`.)
         # You may find the following method useful: `re.findall`.
         # See https://docs.python.org/3/library/re.html#re.findall.
-        self.rank_to_names_tuples = [("1", "TODO_male", "TODO_female"), ("2", "TODO_male", "TODO_female")]
+        
+        mylist = re.findall("<td>[0-9]+</td> <td>[a-zA-Z]+</td> <td>[a-zA-Z]+</td>", text)
+
+        for i in range(len(mylist)):
+            mylist[i] = mylist[i].split()
+            for j in range(len(mylist[i])):
+                mylist[i][j] = mylist[i][j].replace("<td>", "")
+                mylist[i][j] = mylist[i][j].replace("</td>", "")
+            mylist[i] = tuple(mylist[i])
+
+        self.rank_to_names_tuples = mylist
     
     def parse(self, parsing_lambda):
         """
@@ -83,6 +101,8 @@ class BabynameParser:
             parsing_lambda: The parsing lambda.
                             It must process an single (string, string, string) tuple and return something.
         Returns:
-            A list of `BabyRecord` objects. (`BabyRecord` class is defined in `run.py`.)
+            A list of lambda function's output
         """
         # TODO: Implement this method
+        return list(map(parsing_lambda, self.rank_to_names_tuples)) 
+        #return list(map(lambda rank_to_names_tuple : rank_to_names_tuple[0], self.rank_to_names_tuples))
