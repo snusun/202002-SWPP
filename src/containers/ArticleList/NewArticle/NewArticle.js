@@ -14,12 +14,14 @@ class NewArticle extends Component {
   }
   postArticleHandler = (art) => {
     if(!(this.state.title === '' || this.state.content === '')) {
-    const data = { title: this.state.title, content: this.state.content };
-    this.props.onStoreArticle(this.state.title, this.state.content, this.state.author_id);
-    alert('Submitted\n' + data.title + '\n' + data.content);
-    this.setState( {submitted: true} );
+      art = this.props.selectedArticle;
+      this.props.onStoreArticle(this.state.title, this.state.content, this.state.author_id);
+      this.setState( {submitted: true} );
+     /*
+      this.props.onStoreArticle(art.title, art.content, art.author_id);
+      this.props.history.push('/articles/' + art.id);
+      */
     }
-    //this.props.history.push('/articles/' + art.id);
    }
 
   render() {
@@ -50,14 +52,14 @@ class NewArticle extends Component {
   }
 }
 
-/*
+
 const mapStateToProps = state => { //get info from store
     return {
         selectedArticle: state.art.selectedArticle,
-        clickCreate: state.art.clickCreate,
-        storedArticles: state.art.articles
+        //clickCreate: state.art.clickCreate,
+        //storedArticles: state.art.articles
     };
-}*/
+}
 
 const mapDispatchToProps = dispatch => {  //put info to store
   return {
@@ -66,4 +68,4 @@ const mapDispatchToProps = dispatch => {  //put info to store
   };
 };
 
-export default connect(null, mapDispatchToProps)(NewArticle);
+export default connect(mapStateToProps, mapDispatchToProps)(NewArticle);

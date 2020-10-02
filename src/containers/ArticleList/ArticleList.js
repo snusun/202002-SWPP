@@ -57,7 +57,6 @@ const mapStateToProps = state => { //get info from store
 
 const mapDispatchToProps = dispatch => {
     return {
-        //onDeleteArticle: (id) => dispatch({ type: actionTypes.DELETE_ARTICLE, tartgetID: id })
         onGetAll: () => dispatch(actionCreators.getArticles()),
     }
 }
