@@ -7,9 +7,16 @@ import * as actionCreators from '../../../store/actions/index';
 class RealDetail extends Component {
     componentDidMount() {
         this.props.onGetArticle(parseInt(this.props.match.params.id));
+        //this.props.onDeleteArticle(parseInt(this.props.match.params.id));
     }
 
     handleBackButton = () => {
+        this.props.history.push('/articles');
+    }
+
+    handleDeleteArticleButton = (art) => {
+        art = this.props.selectedArticle;
+        this.props.onDeleteArticle(art.id);
         this.props.history.push('/articles');
     }
 
@@ -34,7 +41,7 @@ class RealDetail extends Component {
                 </div>
                 <div>
                     <button id='edit-article-button'>edit</button>
-                    <button id='delete-article-button' onClick={ () => this.handleDeleteButton() }>delete</button> 
+                    <button id='delete-article-button' onClick={  (art) => this.handleDeleteArticleButton(art) }>delete</button> 
                     <button id='back-detail-article-button' onClick={ () => this.handleBackButton() }>back</button>
                 </div>
                 <div>
@@ -72,7 +79,8 @@ const mapDispatchToProps = dispatch => {
     return {
       onGetArticle: id => {
         dispatch(actionCreators.getArticle(id))
-      }
+      },
+      onDeleteArticle: (id) => dispatch(actionCreators.deleteArticle(id))
     }
   }
 
