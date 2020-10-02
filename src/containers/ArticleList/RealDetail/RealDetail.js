@@ -58,17 +58,6 @@ class RealDetail extends Component {
     }
 }
 
-
-/*
-<button onClick={props.clickDelete}>Delete</button> <- in render fn
-
-const mapDispatchToProps = dispatch => {
-    return {
-        onDeleteArticle: (id) => dispatch({ type: actionTypes.DELETE_ARTICLE, tartgetID: id })
-    }
-}
-*/
-
 const mapStateToProps = state => {
     return {
       selectedArticle: state.art.selectedArticle,
@@ -84,8 +73,4 @@ const mapDispatchToProps = dispatch => {
     }
   }
 
-  export default connect(mapStateToProps, mapDispatchToProps)(RealDetail);
-  
-
-//export default RealDetail;
-
+export default connect(mapStateToProps, mapDispatchToProps)(RealDetail);

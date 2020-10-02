@@ -13,11 +13,12 @@ class NewArticle extends Component {
     submitted: false,
   }
   postArticleHandler = (art) => {
+    if(!(this.state.title === '' || this.state.content === '')) {
     const data = { title: this.state.title, content: this.state.content };
     this.props.onStoreArticle(this.state.title, this.state.content, this.state.author_id);
     alert('Submitted\n' + data.title + '\n' + data.content);
     this.setState( {submitted: true} );
-
+    }
     //this.props.history.push('/articles/' + art.id);
    }
 
