@@ -32,10 +32,8 @@ class Login extends Component {
     };
 
     handleLoginButton = () => {
-        debugger;
         if(this.state.email === 'swpp@snu.ac.kr' && this.state.password === 'iluvswpp') {
             this.setState( {vaild: true} );
-            debugger;
             this.props.userLogin({email: this.state.email, password: this.state.password});
         } else {
             alert('Email or password is wrong');
@@ -43,9 +41,6 @@ class Login extends Component {
     }
 
     render() {
-        if(this.state.vaild) {
-            return <Redirect to='/articles' />
-        } 
         return (
         <div className='Login'>
             <div>Login</div>
@@ -55,7 +50,6 @@ class Login extends Component {
                     id='email-input'
                     type='text' 
                     onChange={this.handleEmail}
-                    //value={this.state.email}
                 />
             </div>
             <div>
@@ -64,7 +58,6 @@ class Login extends Component {
                     id='pw-input'
                     type='text'
                     onChange={this.handlePassword}
-                    //value={this.state.password}
                 />
             </div>
             <div>

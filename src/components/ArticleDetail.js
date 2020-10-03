@@ -1,6 +1,4 @@
 import React from 'react';
-//import ArticleList from '../containers/ArticleList/ArticleList';
-import * as actionTypes from '../store/actions/actionTypes';
 
 const ArticleDetail = (props) => {
     return (
@@ -33,14 +31,5 @@ const ArticleDetail = (props) => {
         </div>
     );
 }
-
-/*
-const mapDispatchToProps = dispatch => {
-    return {
-        onDeleteArticle: (id) => dispatch({ type: actionTypes.DELETE_ARTICLE, tartgetID: id })
-    }
-}
-*/
-
 
 export default ArticleDetail;

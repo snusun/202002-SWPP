@@ -7,29 +7,21 @@ import RealDetail from '../RealDetail/RealDetail';
 
 class NewArticle extends Component {
   state = {
-    author_id: 0,
+    author_id: 1,
     title: '',
     content: '',
     submitted: false,
   }
   postArticleHandler = (art) => {
+    debugger;
     if(!(this.state.title === '' || this.state.content === '')) {
       art = this.props.selectedArticle;
       this.props.onStoreArticle(this.state.title, this.state.content, this.state.author_id);
       this.setState( {submitted: true} );
-      //debugger;
-      //this.props.onStoreArticle(art.title, art.content, art.author_id);
-      // this.props.history.push('/articles/' + art.id);
-    
     }
    }
 
   render() {
-    
-    // if (this.state.submitted) {
-    //     return <Redirect to='/articles' />
-    //      }
-         
     return (
       <div className="NewArticle">
         <h1>Add a Article</h1>
@@ -56,8 +48,6 @@ class NewArticle extends Component {
 const mapStateToProps = state => { //get info from store
     return {
         selectedArticle: state.art.selectedArticle,
-        //clickCreate: state.art.clickCreate,
-        //storedArticles: state.art.articles
     };
 }
 

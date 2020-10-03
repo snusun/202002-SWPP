@@ -32,12 +32,10 @@ export const login = (user) => {
 }
 
 export const login_ = (user) => {
-    debugger;
     return { type: actionTypes.LOGIN, logged_in: true,
         targetEmail: user.email, targetPassword: user.password};
 }
 
 export const logout = () => {
-    //dispatch(push('/login'));
     return { type: actionTypes.LOGOUT, logged_in: false };
 };

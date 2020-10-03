@@ -12,9 +12,6 @@ import RealDetail from './containers/ArticleList/RealDetail/RealDetail';
 
 import * as actionCreators from './store/actions/index';
 
-//import { withRouter } from 'react-router';
-
-
 class App extends React.Component {
   componentDidMount() {
     if(!this.props.logged_in) {
@@ -52,12 +49,9 @@ const mapStateToProps = state => {
   }
 };
 
+/*
 const mapDispatchToProps = dispatch => {
-  // return { 
-  //   inLogin: () => {
-  //     dispatch(actionCreators.login())
-  //   }
-  // };
-};
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+};*/
+
+export default connect(mapStateToProps, null)(App);

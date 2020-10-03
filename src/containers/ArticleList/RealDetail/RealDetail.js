@@ -7,7 +7,6 @@ import * as actionCreators from '../../../store/actions/index';
 class RealDetail extends Component {
     componentDidMount() {
         this.props.onGetArticle(parseInt(this.props.match.params.id));
-        //this.props.onDeleteArticle(parseInt(this.props.match.params.id));
     }
 
     handleBackButton = () => {
@@ -21,11 +20,12 @@ class RealDetail extends Component {
     }
 
     render() {
-        let title='', content='', author_id=0;
+        let title='', content='', author_id=1, name='';
         if(this.props.selectedArticle) { //null check
             title = this.props.selectedArticle.title;
             content = this.props.selectedArticle.content;
             author_id = this.props.selectedArticle.author_id;
+            name = (this.props.users.find(user => (user.id === author_id))).name;
         }
 
         return (
@@ -37,7 +37,7 @@ class RealDetail extends Component {
                     <p id='article-content'>Content: {content}</p>
                 </div>
                 <div>
-                    <p id='article-author'>AuthorID: {author_id}</p>              
+                    <p id='article-author'>AuthorName: {name}</p>              
                 </div>
                 <div>
                     <button id='edit-article-button'>edit</button>
@@ -61,6 +61,8 @@ class RealDetail extends Component {
 const mapStateToProps = state => {
     return {
       selectedArticle: state.art.selectedArticle,
+      thisUser: state.user.thisUser,
+      users: state.user.users,
     };
   };
   
