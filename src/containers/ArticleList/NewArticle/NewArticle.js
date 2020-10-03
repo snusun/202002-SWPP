@@ -17,18 +17,18 @@ class NewArticle extends Component {
       art = this.props.selectedArticle;
       this.props.onStoreArticle(this.state.title, this.state.content, this.state.author_id);
       this.setState( {submitted: true} );
-     /*
-      this.props.onStoreArticle(art.title, art.content, art.author_id);
-      this.props.history.push('/articles/' + art.id);
-      */
+      //debugger;
+      //this.props.onStoreArticle(art.title, art.content, art.author_id);
+      // this.props.history.push('/articles/' + art.id);
+    
     }
    }
 
   render() {
     
-    if (this.state.submitted) {
-        return <Redirect to='/articles' />
-         }
+    // if (this.state.submitted) {
+    //     return <Redirect to='/articles' />
+    //      }
          
     return (
       <div className="NewArticle">

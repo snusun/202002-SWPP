@@ -31,7 +31,7 @@ class ArticleList extends Component {
                         content={art.content} author_id={art.author_id}
                         clicked={ () => this.clickArticleHandler(art)}/> );
         })
-        
+        debugger;
         return (
             <div className='ArticleList'>
                 <div className='title'>{this.props.title}</div>

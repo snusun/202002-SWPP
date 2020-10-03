@@ -1,5 +1,6 @@
 import * as actionTypes from './actionTypes';
 import axios from 'axios';
+import { push } from 'connected-react-router';
 
 export const getArticles_ = (articles) => {
   return { type: actionTypes.GET_ALL, articles: articles };
@@ -27,7 +28,9 @@ export const postArticle_ = (art) => {
       return axios.post('/api/articles/', art)
         .then(res => {
           dispatch(postArticle_(res.data));
-          //dispatch(push('/articles/'));
+          //debugger;
+          dispatch(push(`/articles/${res.data.id}`));
+          //debugger;
         });
     };
   };
