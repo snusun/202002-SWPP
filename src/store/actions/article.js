@@ -8,7 +8,7 @@ export const getArticles_ = (articles) => {
 
 export const getArticles = () => {
   return dispatch => {
-    return axios.get('/api/articles')
+    return axios.get('/api/articles') //user info is in /api/user
       .then(res => dispatch(getArticles_(res.data)));
   };
 };
