@@ -17,11 +17,6 @@ const reducer = (state = initialState, action) => {
         case actionTypes.DELETE_ARTICLE:
             const deleted = state.articles.filter(art => art.id !== action.targetID);
             return {...state, articles: deleted}
-        /*case actionTypes.GET_ARTICLE:
-            const selectedArticle = state.articles.find(art => art.id === action.targetID); 
-            //target = {...state.articles[action.targetID - 1]};
-            return {...state, selectedArticle: selectedArticle};
-            */
         case actionTypes.GET_ALL:
             return {...state, articles: action.articles };
         case actionTypes.GET_ARTICLE:

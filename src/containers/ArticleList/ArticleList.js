@@ -12,7 +12,7 @@ import * as actionCreators from '../../store/actions/index';
 
 class ArticleList extends Component {
     componentDidMount() {
-        axios.get("api/articles").then(result => console.log(result.data));
+        //axios.get("api/articles").then(result => console.log(result.data));
         this.props.onGetAll();
     }
     
@@ -31,7 +31,7 @@ class ArticleList extends Component {
                         content={art.content} author_id={art.author_id}
                         clicked={ () => this.clickArticleHandler(art)}/> );
         })
-        debugger;
+        //debugger;
         return (
             <div className='ArticleList'>
                 <div className='title'>{this.props.title}</div>

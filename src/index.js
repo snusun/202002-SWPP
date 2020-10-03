@@ -8,13 +8,15 @@ import { createStore, combineReducers } from 'redux';
 import { applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import articleReducer from './store/reducers/article';
+import userReducer from './store/reducers/login';
 import { connectRouter, routerMiddleware } from 'connected-react-router';
 import { createBrowserHistory } from 'history';
 
 const history = createBrowserHistory();
 const rootReducer = combineReducers({
-    art: articleReducer, router: connectRouter(history)
-    //user: userReducer,
+    art: articleReducer,
+    user: userReducer,
+    router: connectRouter(history),
 });
 
 const store = createStore(rootReducer,/* window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),*/ applyMiddleware(thunk, routerMiddleware(history)));
