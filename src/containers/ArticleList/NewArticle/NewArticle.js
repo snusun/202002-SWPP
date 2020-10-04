@@ -21,6 +21,10 @@ class NewArticle extends Component {
     }
    }
 
+  handleBackButton = () => {
+    this.props.history.push('/articles');
+  }
+
   render() {
     return (
       <div className="NewArticle">
@@ -35,7 +39,7 @@ class NewArticle extends Component {
             <textarea id='article-content-input' rows="4" type="text" value={this.state.content}
             onChange={(event) => this.setState({ content: event.target.value })} />
         </div>
-        <button id='back-create-article-button'>back</button>
+        <button id='back-create-article-button' onClick={() => this.handleBackButton()}>back</button>
         <button id='confirm-create-article-button' onClick={(art) => this.postArticleHandler(art)}>confirm</button>
         <button id='preview-tab-button'>preview</button>
         <button id='write-tab-button'>back</button>

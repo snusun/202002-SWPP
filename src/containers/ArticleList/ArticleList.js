@@ -35,6 +35,7 @@ class ArticleList extends Component {
             <div className='ArticleList'>
                 <div className='title'>{this.props.title}</div>
                 <div className='articles'>{articles}</div>
+                <div className='authorName'></div>
                 
                 <button
                         id='create-article-button'
