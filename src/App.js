@@ -29,6 +29,7 @@ class App extends React.Component {
             <Route path='/articles/create' exact render={(props) =><NewArticle {...props}/>}/>
             <Route path='/articles/:id' exact render={(props) =><RealDetail {...props}/>} />
             <Route render={ () => <h1>Not Found</h1>} />
+            <Redirect exact from='/login' to='/articles' />
             </Switch>
           ) : (
             <Switch>

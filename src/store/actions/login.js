@@ -24,6 +24,11 @@ export const getUser = () => {
     };
 };
 
+export const login_ = (user) => {
+    return { type: actionTypes.LOGIN, logged_in: true,
+        targetEmail: user.email, targetPassword: user.password};
+}
+
 export const login = (user) => {
     return dispatch => {
         dispatch(login_(user));
@@ -31,11 +36,13 @@ export const login = (user) => {
     }
 }
 
-export const login_ = (user) => {
-    return { type: actionTypes.LOGIN, logged_in: true,
-        targetEmail: user.email, targetPassword: user.password};
-}
-
-export const logout = () => {
+export const logout_ = () => {
     return { type: actionTypes.LOGOUT, logged_in: false };
 };
+
+export const logout = () => {
+    return dispatch => {
+        dispatch(logout_());
+        dispatch(push('/login'));
+    }
+}
