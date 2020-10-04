@@ -4,10 +4,11 @@ const Article = props => {
     return (
 
         <div className='Article'>
-            <div>{props.id}</div>
+            <div>article id: {props.id}</div>
         <div className={`text ${props.done && 'done'}`} onClick={props.clicked}>
-            {props.title}
+            title: {props.title}
         </div>
+            author: {props.name}
         </div>
     );
 }

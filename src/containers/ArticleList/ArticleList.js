@@ -26,16 +26,24 @@ class ArticleList extends Component {
     }
 
     render() {
+        /*
+        const name='', author_id=0;
+        if(this.props.storedArticles) { //null check
+            author_id = this.props.storedArticles.author_id;
+            name = (this.props.users.find(user => (user.id === author_id))).name;
+        }
+        */
         const articles = this.props.storedArticles.map((art) => {
             return ( <Article key={art.id} id={art.id} title={art.title}
                         content={art.content} author_id={art.author_id}
+                        name={(this.props.users.find(user => (user.id === art.author_id))).name}
                         clicked={ () => this.clickArticleHandler(art)}/> );
         })
+        //debugger;
         return (
             <div className='ArticleList'>
                 <div className='title'>{this.props.title}</div>
                 <div className='articles'>{articles}</div>
-                <div className='authorName'></div>
                 
                 <button
                         id='create-article-button'
@@ -50,7 +58,8 @@ const mapStateToProps = state => { //get info from store
     return {
         selectedArticle: state.art.selectedArticle,
         clickCreate: state.art.clickCreate,
-        storedArticles: state.art.articles
+        storedArticles: state.art.articles,
+        users: state.user.users,
     };
 }
 
