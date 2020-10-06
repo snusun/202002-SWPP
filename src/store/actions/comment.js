@@ -73,3 +73,15 @@ export const postComment_ = (com) => {
     };
   };
   */
+ export const getComment_ = (com) => {
+  return { type: actionTypes.GET_COMMENT, target: com };
+};
+
+export const getComment = (id) => {
+  return dispatch => {
+    return axios.get('/api/comments/' + id)
+      .then(res => {
+        dispatch(getComment_(res.data))
+      });
+  };
+};

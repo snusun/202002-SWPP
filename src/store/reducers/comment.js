@@ -3,7 +3,7 @@ import * as actionTypes from '../actions/actionTypes';
 const initialState = {
     comments: [],
     selectedComment: [],
-    //clickCreate: false,
+    clickedComment: null
 };
 
 /*
@@ -17,7 +17,7 @@ const reducer = (state = initialState, action) => {
     switch (action.type) {
         case actionTypes.ADD_COMMENT:
             const newComment = {
-                id: state.articles.length + 1,
+                id: state.comments.length + 1,
                 article_id: action.article_id, author_id: action.author_id, content: action.content, 
             };
             return {...state, comments: [...state.comments, newComment]}; 
@@ -32,6 +32,8 @@ const reducer = (state = initialState, action) => {
             case actionTypes.GET_COMMENT:
             return {...state, selectedComment: action.target };
             */
+        case actionTypes.GET_COMMENT:
+            return {...state, clickedComment: action.target };
     }
         
     return state;

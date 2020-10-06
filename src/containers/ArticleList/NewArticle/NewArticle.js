@@ -13,6 +13,7 @@ class NewArticle extends Component {
     submitted: false,
     previewMode: false
   }
+  
   postArticleHandler = (art) => {
     if(!(this.state.title === '' || this.state.content === '')) {
       art = this.props.selectedArticle;

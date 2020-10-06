@@ -6,9 +6,17 @@ import * as actionCreators from '../../../store/actions/index';
 import Comment from '../../../components/Comment/Comment';
 
 class RealDetail extends Component {
+    state = {
+        article_id: parseInt(this.props.match.params.id), 
+        author_id: 1,
+        content: ''
+    }
+
     componentDidMount() {
         this.props.onGetArticle(parseInt(this.props.match.params.id));
         this.props.onGetComments(parseInt(this.props.match.params.id));
+        this.props.onGetComment(parseInt(this.props.match.params.id));
+        this.props.onDeleteComment(parseInt(this.props.match.params.id));
     }
 
     handleBackButton = () => {
@@ -29,8 +37,17 @@ class RealDetail extends Component {
         alert("hi");
     }
 
-    clickCommentDeleteHandler = () => {
-        alert("hii");
+    clickCommentDeleteHandler = (com) => {
+        //alert("hii");
+        /*
+        com = this.props.onGetComment(parseInt(this.props.match.params.id));
+        this.props.onDeleteComment(com.id);
+        */
+    }
+
+    postCommentHandler = () => {
+        this.props.onStoreComment(this.state.article_id, this.state.author_id, this.state.content);
+        this.props.onGetComments(parseInt(this.props.match.params.id));
     }
 
     render() {
@@ -42,17 +59,12 @@ class RealDetail extends Component {
             name = (this.props.users.find(user => (user.id === author_id))).name;
         }
 
-     /*
-"id": 1,
-      "article_id": 0,
-      "author_id": 2,
-      "content": "What do you mean wow?"
-*/      debugger;
+      //debugger;
         const comments = this.props.selectedComment.map((com) => {
             return ( <Comment id={com.id} content={com.content} author_id={com.author_id}
                         authorName ={(this.props.users.find(user => (user.id === com.author_id))).name}
                         clickedEdit={ () => this.clickCommentEditHandler()}
-                        clickedDelete={ () => this.clickCommentDeleteHandler()}/> );
+                        clickedDelete={ (com) => this.props.onDeleteComment(com.id)}/> );
         })
 
         return (
@@ -72,10 +84,12 @@ class RealDetail extends Component {
                     <button id='back-detail-article-button' onClick={ () => this.handleBackButton() }>back</button>
                 </div>
                 <div>
-                    <textarea id='new-comment-content-input' type="text"/>
+                    <textarea id='new-comment-content-input' type="text" value={this.state.content}
+                        onChange={(event) => this.setState({ content: event.target.value})}/>
                 </div>
                 <div>
-                    <button id='confirm-create-comment-button'>create</button>
+                    <button id='confirm-create-comment-button' onClick={ () => this.postCommentHandler() }
+                        disabled={(this.state.content === '')}>create</button>
 
                 </div>
                 <div className='comments'>{comments}</div>
@@ -93,18 +107,27 @@ const mapStateToProps = state => {
       selectedArticle: state.art.selectedArticle,
       thisUser: state.user.thisUser,
       users: state.user.users,
-      selectedComment: state.com.selectedComment
+      selectedComment: state.com.selectedComment,
+      clickedComment: state.com.clickedComment
     };
   };
   
+       /*
+"id": 1,
+      "article_id": 0,
+      "author_id": 2,
+      "content": "What do you mean wow?"
+*/
 const mapDispatchToProps = dispatch => {
     return {
-      onGetArticle: id => {
-        dispatch(actionCreators.getArticle(id))
-      },
+      onGetArticle: id => { dispatch(actionCreators.getArticle(id))},
       onDeleteArticle: (id) => dispatch(actionCreators.deleteArticle(id)),
       logout: () => dispatch(actionCreators.logout()),
       onGetComments: (id) => dispatch(actionCreators.getComments(id)),
+      onStoreComment: (article_id, author_id, content) =>
+        dispatch(actionCreators.postComment({article_id: article_id, author_id: author_id, content: content})),
+      onGetComment: (id) => { dispatch(actionCreators.getComments(id))},
+      onDeleteComment: (id) => dispatch(actionCreators.deleteComment(id)),
     }
   }
 
