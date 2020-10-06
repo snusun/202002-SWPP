@@ -25,6 +25,14 @@ class RealDetail extends Component {
         this.props.logout();
     }
 
+    clickCommentEditHandler = () => {
+        alert("hi");
+    }
+
+    clickCommentDeleteHandler = () => {
+        alert("hii");
+    }
+
     render() {
         let title='', content='', author_id=1, name='';
         if(this.props.selectedArticle) { //null check
@@ -42,7 +50,9 @@ class RealDetail extends Component {
 */      debugger;
         const comments = this.props.selectedComment.map((com) => {
             return ( <Comment id={com.id} content={com.content} author_id={com.author_id}
-                        authorName ={(this.props.users.find(user => (user.id === com.author_id))).name}/> );
+                        authorName ={(this.props.users.find(user => (user.id === com.author_id))).name}
+                        clickedEdit={ () => this.clickCommentEditHandler()}
+                        clickedDelete={ () => this.clickCommentDeleteHandler()}/> );
         })
 
         return (
@@ -66,8 +76,7 @@ class RealDetail extends Component {
                 </div>
                 <div>
                     <button id='confirm-create-comment-button'>create</button>
-                    <button id='edit-comment-button'>edit</button> 
-                    <button id='delete-comment-button'>delete</button>
+
                 </div>
                 <div className='comments'>{comments}</div>
                 <div>
