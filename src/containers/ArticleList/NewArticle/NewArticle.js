@@ -11,9 +11,9 @@ class NewArticle extends Component {
     title: '',
     content: '',
     submitted: false,
+    previewMode: false
   }
   postArticleHandler = (art) => {
-    debugger;
     if(!(this.state.title === '' || this.state.content === '')) {
       art = this.props.selectedArticle;
       this.props.onStoreArticle(this.state.title, this.state.content, this.state.author_id);
@@ -29,31 +29,62 @@ class NewArticle extends Component {
     this.props.logout();
   }
 
+  handleWriteButton = () => {
+    this.setState({ previewMode: false });
+  } 
+
+  handlePreviewButton = () => {
+    this.setState({ previewMode: true });
+  } 
 
   render() {
     return (
-      <div className="NewArticle">
-        <h1>Add a Article</h1>
+      (!this.state.previewMode) ? (
+        <div className="NewArticle"> 
+          <h1>Add a Article</h1>
+          <div>
+              <label>Title </label>
+              <input type="text" id='article-title-input' value={this.state.title}
+                  onChange={(event) => this.setState({ title: event.target.value })} />
+          </div>
+          <div>
+              <label>Content </label>
+              <textarea id='article-content-input' rows="4" type="text" value={this.state.content}
+              onChange={(event) => this.setState({ content: event.target.value })} />
+          </div>
+          <div>
+            <button id='back-create-article-button' onClick={() => this.handleBackButton()}>back</button>
+            <button id='confirm-create-article-button' onClick={(art) => this.postArticleHandler(art)} 
+              disabled={(this.state.title === '' || this.state.content === '')}>confirm</button>
+            <button id='preview-tab-button' onClick={() => this.handlePreviewButton() } >preview</button>
+            <button id='write-tab-button'>write</button>
+          </div>
+          <div>
+            <button id='logout-button' onClick={ () => this.handleLogoutButton() }>logout</button>
+          </div>
+        </div>
+      ) : (
+        <div className="Preview"> 
+          <h1>Preview</h1>
         <div>
-            <label>Title </label>
-            <input type="text" id='article-title-input' value={this.state.title}
-                onChange={(event) => this.setState({ title: event.target.value })} />
+          <p id='article-author'>Author: {(this.props.users.find(user => (user.id === this.state.author_id))).name}</p>
+          <p id='article-title'>Title: {this.state.title}</p>
+          <p id='article-content'>Content: {this.state.content}</p>
         </div>
         <div>
-            <label>Content </label>
-            <textarea id='article-content-input' rows="4" type="text" value={this.state.content}
-            onChange={(event) => this.setState({ content: event.target.value })} />
+          <button id='back-create-article-button' onClick={() => this.handleBackButton()}>back</button>
+          <button id='confirm-create-article-button' onClick={(art) => this.postArticleHandler(art)} 
+            disabled={(this.state.title === '' || this.state.content === '')}>confirm</button>
+          <button id='preview-tab-button'>preview</button>
+          <button id='write-tab-button' onClick={() => this.handleWriteButton() }>write</button>
         </div>
-        <button id='back-create-article-button' onClick={() => this.handleBackButton()}>back</button>
-        <button id='confirm-create-article-button' onClick={(art) => this.postArticleHandler(art)}>confirm</button>
-        <button id='preview-tab-button'>preview</button>
-        <button id='write-tab-button'>back</button>
         <div>
           <button id='logout-button' onClick={ () => this.handleLogoutButton() }>logout</button>
         </div>
-    </div>
-      
-    );
+        <div></div>
+      </div>
+      )
+    )
   }
 }
 
@@ -61,6 +92,7 @@ class NewArticle extends Component {
 const mapStateToProps = state => { //get info from store
     return {
         selectedArticle: state.art.selectedArticle,
+        users: state.user.users,
     };
 }
 
