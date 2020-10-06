@@ -3,10 +3,12 @@ import { connect } from 'react-redux';
 
 import * as actionTypes from '../../../store/actions/actionTypes';
 import * as actionCreators from '../../../store/actions/index';
+import Comment from '../../../components/Comment/Comment';
 
 class RealDetail extends Component {
     componentDidMount() {
         this.props.onGetArticle(parseInt(this.props.match.params.id));
+        this.props.onGetComments(parseInt(this.props.match.params.id));
     }
 
     handleBackButton = () => {
@@ -32,6 +34,17 @@ class RealDetail extends Component {
             name = (this.props.users.find(user => (user.id === author_id))).name;
         }
 
+     /*
+"id": 1,
+      "article_id": 0,
+      "author_id": 2,
+      "content": "What do you mean wow?"
+*/      debugger;
+        const comments = this.props.selectedComment.map((com) => {
+            return ( <Comment id={com.id} content={com.content} author_id={com.author_id}
+                        authorName ={(this.props.users.find(user => (user.id === com.author_id))).name}/> );
+        })
+
         return (
             <div className="TodoDetail">
                 <div>
@@ -56,6 +69,7 @@ class RealDetail extends Component {
                     <button id='edit-comment-button'>edit</button> 
                     <button id='delete-comment-button'>delete</button>
                 </div>
+                <div className='comments'>{comments}</div>
                 <div>
                     <button id='logout-button' onClick={ () => this.handleLogoutButton() }>logout</button>
                 </div>
@@ -70,6 +84,7 @@ const mapStateToProps = state => {
       selectedArticle: state.art.selectedArticle,
       thisUser: state.user.thisUser,
       users: state.user.users,
+      selectedComment: state.com.selectedComment
     };
   };
   
@@ -80,6 +95,7 @@ const mapDispatchToProps = dispatch => {
       },
       onDeleteArticle: (id) => dispatch(actionCreators.deleteArticle(id)),
       logout: () => dispatch(actionCreators.logout()),
+      onGetComments: (id) => dispatch(actionCreators.getComments(id)),
     }
   }
 

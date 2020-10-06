@@ -5,3 +5,7 @@ export {
 export {
     getUsers, getUser, login, logout
 } from './login'
+
+export {
+    getComments, postComment, deleteComment
+} from './comment'
