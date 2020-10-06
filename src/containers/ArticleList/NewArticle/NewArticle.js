@@ -25,6 +25,11 @@ class NewArticle extends Component {
     this.props.history.push('/articles');
   }
 
+  handleLogoutButton = () => {
+    this.props.logout();
+  }
+
+
   render() {
     return (
       <div className="NewArticle">
@@ -43,7 +48,11 @@ class NewArticle extends Component {
         <button id='confirm-create-article-button' onClick={(art) => this.postArticleHandler(art)}>confirm</button>
         <button id='preview-tab-button'>preview</button>
         <button id='write-tab-button'>back</button>
-      </div>
+        <div>
+          <button id='logout-button' onClick={ () => this.handleLogoutButton() }>logout</button>
+        </div>
+    </div>
+      
     );
   }
 }
@@ -58,7 +67,8 @@ const mapStateToProps = state => { //get info from store
 const mapDispatchToProps = dispatch => {  //put info to store
   return {
     onStoreArticle: (title, content, author_id) =>
-      dispatch(actionCreators.postArticle({title: title, content: content, author_id: author_id}))
+      dispatch(actionCreators.postArticle({title: title, content: content, author_id: author_id})),
+    logout: () => dispatch(actionCreators.logout()),  
   };
 };
 

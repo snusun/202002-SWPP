@@ -65,12 +65,6 @@
       "author_id": 3,
       "title": "ReactJS Testing",
       "content": "Jest is a delightful JavaScript Testing Framework with a focus on simplicity."
-    },
-    {
-      "title": "12",
-      "content": "12",
-      "author_id": 1,
-      "id": 21
     }
   ],
   "comments": [
@@ -207,7 +201,7 @@
       "email": "swpp@snu.ac.kr",
       "password": "iluvswpp",
       "name": "Software Lover",
-      "logged_in": false
+      "logged_in": true
     },
     {
       "id": 2,

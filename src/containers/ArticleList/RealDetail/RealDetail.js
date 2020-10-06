@@ -19,6 +19,10 @@ class RealDetail extends Component {
         this.props.history.push('/articles');
     }
 
+    handleLogoutButton = () => {
+        this.props.logout();
+    }
+
     render() {
         let title='', content='', author_id=1, name='';
         if(this.props.selectedArticle) { //null check
@@ -52,6 +56,9 @@ class RealDetail extends Component {
                     <button id='edit-comment-button'>edit</button> 
                     <button id='delete-comment-button'>delete</button>
                 </div>
+                <div>
+                    <button id='logout-button' onClick={ () => this.handleLogoutButton() }>logout</button>
+                </div>
 
             </div>
         );
@@ -71,7 +78,8 @@ const mapDispatchToProps = dispatch => {
       onGetArticle: id => {
         dispatch(actionCreators.getArticle(id))
       },
-      onDeleteArticle: (id) => dispatch(actionCreators.deleteArticle(id))
+      onDeleteArticle: (id) => dispatch(actionCreators.deleteArticle(id)),
+      logout: () => dispatch(actionCreators.logout()),
     }
   }
 

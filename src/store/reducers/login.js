@@ -13,7 +13,7 @@ const reducer = (state = initialState, action) => {
         case actionTypes.GET_USER:
             return {...state, thisUser: action.target };
         case actionTypes.LOGIN:
-            const loginedUser = state.users.find(user => (user.email === action.targetEmail && user.password === action.targetPassword));
+            const loginedUser = state.users.find(user => (user.email === action.user.email && user.password === action.user.password));
             return {...state, thisUser: loginedUser, logged_in: true };
         case actionTypes.LOGOUT:
             return {...state, thisUser: null, logged_in: false };       

@@ -25,6 +25,11 @@ class ArticleList extends Component {
         this.props.history.push('/articles/create');
     }
 
+    handleLogoutButton = () => {
+        this.props.logout();
+    }
+
+
     render() {
         /*
         const name='', author_id=0;
@@ -48,7 +53,7 @@ class ArticleList extends Component {
                 <button
                         id='create-article-button'
                         onClick={ () => this.handleCreateButton() }>Create</button>
-
+                <button id='logout-button' onClick={ () => this.handleLogoutButton() }>logout</button>
             </div>
         );
     }
@@ -67,6 +72,7 @@ const mapStateToProps = state => { //get info from store
 const mapDispatchToProps = dispatch => {
     return {
         onGetAll: () => dispatch(actionCreators.getArticles()),
+        logout: () => dispatch(actionCreators.logout()),
     }
 }
 

@@ -24,6 +24,7 @@ export const getUser = () => {
     };
 };
 
+/*
 export const login_ = (user) => {
     return { type: actionTypes.LOGIN, logged_in: true,
         targetEmail: user.email, targetPassword: user.password};
@@ -33,6 +34,21 @@ export const login = (user) => {
     return dispatch => {
         dispatch(login_(user));
         dispatch(push('/articles'));
+    }
+}
+*/
+
+export const login_ = (user) => {
+    return { type: actionTypes.LOGIN, /*logged_in: true,*/
+        user:user};
+}
+
+export const login = () => {
+    return dispatch => {
+        return axios.put('/api/user/1', {id: 1, email: "swpp@snu.ac.kr", password: "iluvswpp", name: "Software Lover", logged_in: true})
+        .then(user => dispatch(login_(user)))
+        //debugger;
+        .then(dispatch(push('/articles')));
     }
 }
 
