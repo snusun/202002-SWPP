@@ -37,9 +37,6 @@ export const postComment_ = (com) => {
       return axios.post('/api/comments/', com)
         .then(res => {
           dispatch(postComment_(res.data));
-          //debugger;
-          //dispatch(push(`/articles/${res.data.id}`));
-          //debugger;
         });
     };
   };
@@ -59,20 +56,6 @@ export const postComment_ = (com) => {
     };
   };
   
-  /*
-  export const getComment_ = (com) => {
-    return { type: actionTypes.GET_COMMENT, target: com };
-  };
-  
-  export const getComment = (id) => {
-    return dispatch => {
-      return axios.get('/api/comments/' + id)
-        .then(res => {
-          dispatch(getComment_(res.data))
-        });
-    };
-  };
-  */
  export const getComment_ = (com) => {
   return { type: actionTypes.GET_COMMENT, target: com };
 };
@@ -85,3 +68,16 @@ export const getComment = (id) => {
       });
   };
 };
+
+export const editComment_ = (com) => {
+  return { type: actionTypes.EDIT_COMMENT, target: com };
+}
+
+export const editComment = (com, id) => {
+  return dispatch => {
+    return axios.put('/api/comments/' + id, com)
+      .then(res => {
+        dispatch(editComment_(res.data))
+      });
+  }
+}

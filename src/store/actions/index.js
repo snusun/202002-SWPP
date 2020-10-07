@@ -7,5 +7,5 @@ export {
 } from './login'
 
 export {
-    getComments, postComment, deleteComment
+    getComments, postComment, deleteComment, editComment
 } from './comment'

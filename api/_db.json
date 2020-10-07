@@ -49,6 +49,12 @@
       "content": "A few years ago, my friend Sean started telling me how this brand new front-end library called React was going to take over the web. At first I dismissed it as just another framework fad. But then I started hearing about React more and more, to the point where I felt like ignoring it just wasn’t an option anymore."
     },
     {
+      "id": 18,
+      "author_id": 3,
+      "title": "Semantic UI: User Interface is the language of the web",
+      "content": "Semantic 2.4 brings a new components for handling content loading ui placeholder, as well as a new type of segment used to reserve space for content: ui placeholder segment."
+    },
+    {
       "id": 19,
       "author_id": 3,
       "title": "Bootstrap: Build responsive, mobile-first projects on the web with the world’s most popular front-end component library",
@@ -81,6 +87,12 @@
       "content": "I agree with you"
     },
     {
+      "id": 5,
+      "article_id": 12,
+      "author_id": 3,
+      "content": "Haha this is funny"
+    },
+    {
       "id": 7,
       "article_id": 13,
       "author_id": 1,
@@ -97,6 +109,12 @@
       "article_id": 14,
       "author_id": 3,
       "content": "I do not want to work"
+    },
+    {
+      "id": 10,
+      "article_id": 15,
+      "author_id": 3,
+      "content": "What time is it?"
     },
     {
       "id": 11,
@@ -121,6 +139,12 @@
       "article_id": 17,
       "author_id": 2,
       "content": "Me neither"
+    },
+    {
+      "id": 15,
+      "article_id": 18,
+      "author_id": 2,
+      "content": "I am so stressed out"
     },
     {
       "id": 16,
@@ -151,6 +175,18 @@
       "article_id": 0,
       "content": "Wow!",
       "id": 22
+    },
+    {
+      "article_id": 20,
+      "author_id": 1,
+      "content": "Hi",
+      "id": 23
+    },
+    {
+      "article_id": 20,
+      "author_id": 1,
+      "content": "Hi??",
+      "id": 25
     }
   ],
   "user": [

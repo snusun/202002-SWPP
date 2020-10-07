@@ -15,7 +15,7 @@ class RealDetail extends Component {
     componentDidMount() {
         this.props.onGetArticle(parseInt(this.props.match.params.id));
         this.props.onGetComments(parseInt(this.props.match.params.id));
-        this.props.onGetComment(parseInt(this.props.match.params.id));
+        //this.props.onGetComment(parseInt(this.props.match.params.id));
     }
 
     handleBackButton = () => {
@@ -32,8 +32,13 @@ class RealDetail extends Component {
         this.props.logout();
     }
 
-    clickCommentEditHandler = () => {
-        alert("hi");
+    clickCommentEditHandler = (com, id) => {
+        this.props.onGetComments(parseInt(this.props.match.params.id));
+        var content = prompt('문자열을 입력하세요', this.props.selectedComment.find(com => id === com.id).content);
+        if(content !== null) {
+            this.props.onEditComment(com);
+        }
+        this.props.onGetComments(parseInt(this.props.match.params.id));
     }
 
     clickCommentDeleteHandler = (id) => {
@@ -58,9 +63,10 @@ class RealDetail extends Component {
 
       //debugger;
         const comments = this.props.selectedComment.map((com) => {
-            return ( <Comment id={com.id} content={com.content} author_id={com.author_id}
+            return ( <Comment key={com.id} id={com.id} content={com.content} author_id={com.author_id}
+                        article_id={com.article_id}
                         authorName ={(this.props.users.find(user => (user.id === com.author_id))).name}
-                        clickedEdit={ () => this.clickCommentEditHandler()}
+                        clickedEdit={ () => this.clickCommentEditHandler(com, com.id)}
                         clickedDelete={ () => this.clickCommentDeleteHandler(com.id) }/> );
         })
 
@@ -105,6 +111,7 @@ const mapStateToProps = state => {
       thisUser: state.user.thisUser,
       users: state.user.users,
       selectedComment: state.com.selectedComment,
+      comment: state.com.comment,
       clickedComment: state.com.clickedComment
     };
   };
@@ -119,6 +126,7 @@ const mapDispatchToProps = dispatch => {
         dispatch(actionCreators.postComment({article_id: article_id, author_id: author_id, content: content})),
       onGetComment: (id) => { dispatch(actionCreators.getComments(id))},
       onDeleteComment: (id) => dispatch(actionCreators.deleteComment(id)),
+      onEditComment: (com) => dispatch(actionCreators.editComment(com, com.id))
     }
   }
 

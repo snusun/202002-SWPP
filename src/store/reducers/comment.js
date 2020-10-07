@@ -3,7 +3,8 @@ import * as actionTypes from '../actions/actionTypes';
 const initialState = {
     comments: [],
     selectedComment: [],
-    clickedComment: null
+    clickedComment: null,
+    comment: null,
 };
 
 /*
@@ -34,6 +35,8 @@ const reducer = (state = initialState, action) => {
             */
         case actionTypes.GET_COMMENT:
             return {...state, clickedComment: action.target };
+        case actionTypes.EDIT_COMMENT:
+            return {...state, comment: action.target}
     }
         
     return state;
