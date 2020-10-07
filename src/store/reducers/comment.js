@@ -22,8 +22,8 @@ const reducer = (state = initialState, action) => {
             };
             return {...state, comments: [...state.comments, newComment]}; 
         case actionTypes.DELETE_COMMENT:
-            const deleted = state.comments.filter(com => com.id !== action.targetID);
-            return {...state, comments: deleted}
+            const deleted = state.comments.filter(com => { return com.id !== action.targetID});
+            return {...state, comment: deleted}
         case actionTypes.GET_COMMENTS:
             debugger;
             const filtered = action.comments.filter( com => com.article_id === action.article_id ) 

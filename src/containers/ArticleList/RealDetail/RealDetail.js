@@ -16,7 +16,6 @@ class RealDetail extends Component {
         this.props.onGetArticle(parseInt(this.props.match.params.id));
         this.props.onGetComments(parseInt(this.props.match.params.id));
         this.props.onGetComment(parseInt(this.props.match.params.id));
-        this.props.onDeleteComment(parseInt(this.props.match.params.id));
     }
 
     handleBackButton = () => {
@@ -37,12 +36,10 @@ class RealDetail extends Component {
         alert("hi");
     }
 
-    clickCommentDeleteHandler = (com) => {
-        //alert("hii");
-        /*
-        com = this.props.onGetComment(parseInt(this.props.match.params.id));
-        this.props.onDeleteComment(com.id);
-        */
+    clickCommentDeleteHandler = (id) => {
+        this.props.onDeleteComment(parseInt(id));
+        this.props.onGetComments(parseInt(this.props.match.params.id));
+        
     }
 
     postCommentHandler = () => {
@@ -64,7 +61,7 @@ class RealDetail extends Component {
             return ( <Comment id={com.id} content={com.content} author_id={com.author_id}
                         authorName ={(this.props.users.find(user => (user.id === com.author_id))).name}
                         clickedEdit={ () => this.clickCommentEditHandler()}
-                        clickedDelete={ (com) => this.props.onDeleteComment(com.id)}/> );
+                        clickedDelete={ () => this.clickCommentDeleteHandler(com.id) }/> );
         })
 
         return (
@@ -112,12 +109,6 @@ const mapStateToProps = state => {
     };
   };
   
-       /*
-"id": 1,
-      "article_id": 0,
-      "author_id": 2,
-      "content": "What do you mean wow?"
-*/
 const mapDispatchToProps = dispatch => {
     return {
       onGetArticle: id => { dispatch(actionCreators.getArticle(id))},

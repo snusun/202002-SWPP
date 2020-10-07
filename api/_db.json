@@ -49,12 +49,6 @@
       "content": "A few years ago, my friend Sean started telling me how this brand new front-end library called React was going to take over the web. At first I dismissed it as just another framework fad. But then I started hearing about React more and more, to the point where I felt like ignoring it just wasn’t an option anymore."
     },
     {
-      "id": 18,
-      "author_id": 3,
-      "title": "Semantic UI: User Interface is the language of the web",
-      "content": "Semantic 2.4 brings a new components for handling content loading ui placeholder, as well as a new type of segment used to reserve space for content: ui placeholder segment."
-    },
-    {
       "id": 19,
       "author_id": 3,
       "title": "Bootstrap: Build responsive, mobile-first projects on the web with the world’s most popular front-end component library",
@@ -87,18 +81,6 @@
       "content": "I agree with you"
     },
     {
-      "id": 5,
-      "article_id": 12,
-      "author_id": 3,
-      "content": "Haha this is funny"
-    },
-    {
-      "id": 6,
-      "article_id": 12,
-      "author_id": 2,
-      "content": "Yes, it is hilarious"
-    },
-    {
       "id": 7,
       "article_id": 13,
       "author_id": 1,
@@ -115,12 +97,6 @@
       "article_id": 14,
       "author_id": 3,
       "content": "I do not want to work"
-    },
-    {
-      "id": 10,
-      "article_id": 15,
-      "author_id": 3,
-      "content": "What time is it?"
     },
     {
       "id": 11,
@@ -147,12 +123,6 @@
       "content": "Me neither"
     },
     {
-      "id": 15,
-      "article_id": 18,
-      "author_id": 2,
-      "content": "I am so stressed out"
-    },
-    {
       "id": 16,
       "article_id": 18,
       "author_id": 3,
@@ -177,178 +147,10 @@
       "content": "I think so as well"
     },
     {
-      "id": 21,
-      "article_id": 20,
-      "author_id": 1,
-      "content": "Oh, what a misery"
-    },
-    {
       "author_id": 1,
       "article_id": 0,
       "content": "Wow!",
       "id": 22
-    },
-    {
-      "article_id": 20,
-      "author_id": 1,
-      "content": "123",
-      "id": 23
-    },
-    {
-      "article_id": 20,
-      "author_id": 1,
-      "content": "123",
-      "id": 24
-    },
-    {
-      "article_id": 20,
-      "author_id": 1,
-      "content": "123",
-      "id": 25
-    },
-    {
-      "article_id": 20,
-      "author_id": 1,
-      "content": "123",
-      "id": 26
-    },
-    {
-      "article_id": 20,
-      "author_id": 1,
-      "content": "123",
-      "id": 27
-    },
-    {
-      "article_id": 20,
-      "author_id": 1,
-      "content": "123",
-      "id": 28
-    },
-    {
-      "article_id": 20,
-      "author_id": 1,
-      "content": "123",
-      "id": 29
-    },
-    {
-      "article_id": 20,
-      "author_id": 1,
-      "content": "123",
-      "id": 30
-    },
-    {
-      "article_id": 20,
-      "author_id": 1,
-      "content": "123",
-      "id": 31
-    },
-    {
-      "article_id": 20,
-      "author_id": 1,
-      "content": "oh",
-      "id": 32
-    },
-    {
-      "article_id": 20,
-      "author_id": 1,
-      "content": "oh",
-      "id": 33
-    },
-    {
-      "article_id": 20,
-      "author_id": 1,
-      "content": "oh",
-      "id": 34
-    },
-    {
-      "article_id": 20,
-      "author_id": 1,
-      "content": "oh",
-      "id": 35
-    },
-    {
-      "article_id": 20,
-      "author_id": 1,
-      "content": "oh",
-      "id": 36
-    },
-    {
-      "article_id": 20,
-      "author_id": 1,
-      "content": "oh",
-      "id": 37
-    },
-    {
-      "article_id": 20,
-      "author_id": 1,
-      "content": "oh",
-      "id": 38
-    },
-    {
-      "article_id": 20,
-      "author_id": 1,
-      "content": "oh",
-      "id": 39
-    },
-    {
-      "article_id": 20,
-      "author_id": 1,
-      "content": "oh",
-      "id": 40
-    },
-    {
-      "article_id": 20,
-      "author_id": 1,
-      "content": "oh",
-      "id": 41
-    },
-    {
-      "article_id": 20,
-      "author_id": 1,
-      "content": "oh",
-      "id": 42
-    },
-    {
-      "article_id": 20,
-      "author_id": 1,
-      "content": "oh",
-      "id": 43
-    },
-    {
-      "article_id": 20,
-      "author_id": 1,
-      "content": "oh",
-      "id": 44
-    },
-    {
-      "article_id": 20,
-      "author_id": 1,
-      "content": "oh",
-      "id": 45
-    },
-    {
-      "article_id": 20,
-      "author_id": 1,
-      "content": "oh",
-      "id": 46
-    },
-    {
-      "article_id": 20,
-      "author_id": 1,
-      "content": "oh",
-      "id": 47
-    },
-    {
-      "article_id": 20,
-      "author_id": 1,
-      "content": "hi",
-      "id": 48
-    },
-    {
-      "article_id": 19,
-      "author_id": 1,
-      "content": "hi",
-      "id": 49
     }
   ],
   "user": [

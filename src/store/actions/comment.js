@@ -45,10 +45,10 @@ export const postComment_ = (com) => {
   };
 
   
-  export const deleteComment_ = (com) => {
+  export const deleteComment_ = (id) => {
     return {
       type: actionTypes.DELETE_COMMENT,
-      targetID: com.id
+      targetID: id
     };
   };
   
