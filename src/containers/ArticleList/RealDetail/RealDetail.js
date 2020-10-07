@@ -71,9 +71,41 @@ class RealDetail extends Component {
         })
 
         return (
-            <div className="TodoDetail">
+            (author_id === 1) ? (
+                <div className="TodoDetail">
+                    <div>
+                    <p id='article-title'>Title: {title}</p>
+                    </div>
+                    <div>
+                        <p id='article-content'>Content: {content}</p>
+                    </div>
+                    <div>
+                        <p id='article-author'>AuthorName: {name}</p>              
+                    </div>
+                    <div>
+                        <button id='edit-article-button'>edit</button>
+                        <button id='delete-article-button' onClick={  (art) => this.handleDeleteArticleButton(art) }>delete</button> 
+                        <button id='back-detail-article-button' onClick={ () => this.handleBackButton() }>back</button>
+                    </div>
+                    <div>
+                        <textarea id='new-comment-content-input' type="text" value={this.state.content}
+                            onChange={(event) => this.setState({ content: event.target.value})}/>
+                    </div>
+                    <div>
+                        <button id='confirm-create-comment-button' onClick={ () => this.postCommentHandler() }
+                            disabled={(this.state.content === '')}>create</button>
+
+                    </div>
+                    <div className='comments'>{comments}</div>
+                    <div>
+                        <button id='logout-button' onClick={ () => this.handleLogoutButton() }>logout</button>
+                    </div>
+
+                </div>
+            ) : (
+                <div className="TodoDetail">
                 <div>
-                   <p id='article-title'>Title: {title}</p>
+                <p id='article-title'>Title: {title}</p>
                 </div>
                 <div>
                     <p id='article-content'>Content: {content}</p>
@@ -82,8 +114,6 @@ class RealDetail extends Component {
                     <p id='article-author'>AuthorName: {name}</p>              
                 </div>
                 <div>
-                    <button id='edit-article-button'>edit</button>
-                    <button id='delete-article-button' onClick={  (art) => this.handleDeleteArticleButton(art) }>delete</button> 
                     <button id='back-detail-article-button' onClick={ () => this.handleBackButton() }>back</button>
                 </div>
                 <div>
@@ -100,7 +130,7 @@ class RealDetail extends Component {
                     <button id='logout-button' onClick={ () => this.handleLogoutButton() }>logout</button>
                 </div>
 
-            </div>
+            </div>            )
         );
     }
 }
