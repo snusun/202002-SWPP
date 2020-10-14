@@ -13,7 +13,6 @@ class Login extends Component {
 
     componentDidMount() {
         this.props.getUsers();
-        //debugger;
         if(this.props.logged_in) {
             this.props.history.push("./articles");
         }
@@ -34,11 +33,8 @@ class Login extends Component {
     handleLoginButton = () => {
         if(this.state.email === 'swpp@snu.ac.kr' && this.state.password === 'iluvswpp') {
             this.setState( {vaild: true} );
-            //this.props.logged_in = true;
             this.props.getUser();
             this.props.userLogin();
-//            this.props.userLogin({email: this.state.email, password: this.state.password});
-            //this.props.getUsers(this.props.user)
         } else {
             alert('Email or password is wrong');
         }

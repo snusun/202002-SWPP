@@ -5,7 +5,7 @@ const Article = props => {
 
         <div className='Article'>
             <div>article id: {props.id}</div>
-        <div className={`text ${props.done && 'done'}`} onClick={props.clicked}>
+        <div className='title' onClick={props.clicked}>
             title: {props.title}
         </div>
             author: {props.name}

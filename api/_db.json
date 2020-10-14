@@ -93,6 +93,12 @@
       "content": "Haha this is funny"
     },
     {
+      "id": 6,
+      "article_id": 12,
+      "author_id": 2,
+      "content": "Yes, it is hilarious"
+    },
+    {
       "id": 7,
       "article_id": 13,
       "author_id": 1,
@@ -171,22 +177,22 @@
       "content": "I think so as well"
     },
     {
+      "id": 20,
+      "article_id": 20,
+      "author_id": 3,
+      "content": "Tornado has hit our town"
+    },
+    {
+      "id": 21,
+      "article_id": 20,
+      "author_id": 1,
+      "content": "Oh, what a misery"
+    },
+    {
       "author_id": 1,
       "article_id": 0,
       "content": "Wow!",
       "id": 22
-    },
-    {
-      "article_id": 20,
-      "author_id": 1,
-      "content": "Hi",
-      "id": 23
-    },
-    {
-      "article_id": 20,
-      "author_id": 1,
-      "content": "Hi??",
-      "id": 25
     }
   ],
   "user": [

@@ -72,7 +72,7 @@ class RealDetail extends Component {
 
         return (
             (author_id === 1) ? (
-                <div className="TodoDetail">
+                <div className="ArticleDetail">
                     <div>
                     <p id='article-title'>Title: {title}</p>
                     </div>
@@ -103,7 +103,7 @@ class RealDetail extends Component {
 
                 </div>
             ) : (
-                <div className="TodoDetail">
+                <div className="ArticleDetail">
                 <div>
                 <p id='article-title'>Title: {title}</p>
                 </div>
