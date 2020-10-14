@@ -68,20 +68,6 @@ describe('Login Reducer', () => {
         name: "Software Lover", 
         logged_in: true
       };
-    const newState = reducer(undefined, {
-      type: actionTypes.LOGIN,
-      thisUser: stubUser,
-      logged_in: true
-    });
-    expect(newState).toEqual({
-        users: [],
-        thisUser: undefined,
-        logged_in: true,
-    });
-  });
-
-  it('should logout', () => {
-    /*
     const stubUsers = [
         {id: 1, email: "swpp@snu.ac.kr", password: "1", 
             name: "1", logged_in: true},
@@ -89,15 +75,62 @@ describe('Login Reducer', () => {
             name: "2", logged_in: true},
         {id: 3, email: "swpp@snu.ac.kr", password: "3", 
             name: "3", logged_in: true},
-    ];*/
-    const newState = reducer(undefined, {
+    ];
+    const stubInitialState = {
+      users: stubUsers,
+    }
+    const newState = reducer(stubInitialState, {
       type: actionTypes.LOGIN,
+      user: stubUsers,
+      thisUser: stubUser,
+      logged_in: true
+    });
+    expect(newState).toEqual({
+        users: [
+          {id: 1, email: "swpp@snu.ac.kr", password: "1", 
+            name: "1", logged_in: true},
+        {id: 2, email: "swpp@snu.ac.kr", password: "2", 
+            name: "2", logged_in: true},
+        {id: 3, email: "swpp@snu.ac.kr", password: "3", 
+            name: "3", logged_in: true},
+        ],
+        thisUser: undefined,
+        logged_in: true,
+    });
+  });
+  /*
+  it('should delete article', () => {
+    const stubInitialState = {
+      articles: [stubArticle],
+      selectedArticle: null,
+    };
+    const newState = reducer(stubInitialState, {
+      type: actionTypes.DELETE_ARTICLE,
+      targetID: 1,
+    });
+    expect(newState).toEqual({
+      articles: [],
+      selectedArticle: null
+    });
+  });
+  */
+  it('should logout', () => {
+    const stubUsers = [
+        {id: 1, email: "swpp@snu.ac.kr", password: "1", 
+            name: "1", logged_in: true},
+        {id: 2, email: "swpp@snu.ac.kr", password: "2", 
+            name: "2", logged_in: true},
+        {id: 3, email: "swpp@snu.ac.kr", password: "3", 
+            name: "3", logged_in: true},
+    ];
+    const newState = reducer(undefined, {
+      type: actionTypes.LOGOUT,
       thisUser: null,
     });
     expect(newState).toEqual({
         users: [],
-        thisUser: undefined,
-        logged_in: true,
+        thisUser: null,
+        logged_in: false,
     });
   });
 })

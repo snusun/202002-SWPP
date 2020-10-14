@@ -38,7 +38,6 @@ class Login extends Component {
         } else {
             alert('Email or password is wrong');
         }
-        debugger;
     }
 
     render() {

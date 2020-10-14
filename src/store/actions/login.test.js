@@ -4,7 +4,7 @@ import axios from 'axios';
 import * as actionCreators from './login';
 import store from '../store';
 
-const stubUser = {
+var stubUser = {
   id: 0, 
   email: "swpp@snu.ac.kr", 
   password: "iluvswpp", 
@@ -79,13 +79,24 @@ describe('ActionCreators', () => {
     });
   });
   
-  /*
   it(`'logout' should logout correctly`, (done) => {
+    /*
     const spy = jest.fn(url => {
         return new Promise((resolve, reject) => {
           const result = {
             status: 200,
             data: stubUser,
+          };
+          resolve(result);
+        });
+      })
+     */ 
+    const spy = jest.spyOn(axios, 'put')
+      .mockImplementation(() => {
+        return new Promise((resolve, reject) => {
+          const result = {
+            status: 200,
+            data: stubUser
           };
           resolve(result);
         });
@@ -96,5 +107,4 @@ describe('ActionCreators', () => {
       done();
     });
   });
-  */
 });

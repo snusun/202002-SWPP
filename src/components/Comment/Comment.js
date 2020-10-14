@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Comment = props => {
-    debugger;
+    //debugger;
     return (
         <div className='Comment'>
             <div>author name: {props.authorName}</div>

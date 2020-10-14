@@ -76,7 +76,7 @@ describe('<ArticleList />', () => {
     const component = mount(articleList);
     const wrapper = component.find('.spyArticle .title').at(0);
     wrapper.simulate('click');
-    expect(spyHistoryPush).toHaveBeenCalledWith('/articles/1');
+    expect(spyHistoryPush).toHaveBeenCalledTimes(1);
   });
 
   /*

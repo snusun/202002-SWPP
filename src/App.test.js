@@ -10,10 +10,10 @@ import { history } from './store/store';
 import axios from 'axios';
 
 const initialState = {
-  articles: [], selectedArticle: null, clickCreate: false
+   articles: [], selectedArticle: null, clickCreate: false
 }
 
-var mockStore = getMockStore(initialState);
+var mockStore = getMockStore(initialState, { logged_in: false });
 
 /*
 jest.mock('./containers/ArticleList/ArticleList', () => {
@@ -29,6 +29,7 @@ jest.mock('./containers/ArticleList/ArticleList', () => {
 describe('App', () => {
   let app;
   let spyAxios_get;
+  let spyHistoryPush;
 
   beforeEach(() => {
     app = (
@@ -43,7 +44,11 @@ describe('App', () => {
             .spyOn(axios, "get")
             .mockImplementation(() =>
                 Promise.resolve({ data: { logged_in: true } }),
-            );
+    );
+
+    spyHistoryPush = jest.spyOn(history, "push").mockImplementation(() => {
+            return dispatch => { dispatch() };
+        });
   });
 
   //below all error...
@@ -66,28 +71,24 @@ describe('App', () => {
         </Provider>
       ); 
       const component = mount(app);
-      expect(component.find("App".length).toBe(1)); 
+      expect(component.find('.App').length).toBe(1); 
+      expect(spyHistoryPush).toHaveBeenCalledTimes(1);
   })
 
-  /*
-  it('should be redirected to error page', () => {
-    history.push('/aaa');
+  it('should redirect to browse when logged out', () => {
+    mockStore = getMockStore(
+      { logged_in: false },
+      initialState,
+    );
+    app = (
+      <Provider store={mockStore}>
+        <ConnectedRouter history={history}>
+          <App history={history}/>
+        </ConnectedRouter>
+      </Provider>
+    ); 
     const component = mount(app);
-    expect(component.find('h1').text()).toBe('Not Found');
-  })
-  */
-
-  /*
-  it("should be login page", () => {
-    history.push("/");
-    const component = mount(app);
-    expect(component.find("h1").text()).toBe("Login Page"); //edit
-  });
-
-  it("should be redirected to login page", () => {
-    history.push("/login");
-    const component = mount(app);
-    expect(component.find("h1").text()).toBe("Login Page"); //edit
-  });
-  */
+    expect(component.find('.App').length).toBe(1); 
+    expect(spyHistoryPush).toHaveBeenCalledTimes(2);
+})
 });

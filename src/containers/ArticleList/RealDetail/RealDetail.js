@@ -50,9 +50,11 @@ class RealDetail extends Component {
     postCommentHandler = () => {
         this.props.onStoreComment(this.state.article_id, this.state.author_id, this.state.content);
         this.props.onGetComments(parseInt(this.props.match.params.id));
+        this.setState( {content: '' } );
     }
 
     render() {
+        console.log(this.props.selectedComment);
         let title='', content='', author_id=1, name='';
         if(this.props.selectedArticle) { //null check
             title = this.props.selectedArticle.title;
