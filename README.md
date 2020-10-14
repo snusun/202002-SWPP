@@ -8,3 +8,10 @@
 3. Send PR to this repo's master branch.
 
 Note that you need to start from the project generation. (No skeleton code)
+Run `django-admin startproject toh` on the root of this repo.
+
+``` bash
+git clone https://github.com/{YOUR_GITHUB_ID}/swpp2020-django-practice.git
+cd swpp2020-django-practice
+django-admin startproject toh
+```
