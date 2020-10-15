@@ -42,8 +42,8 @@ describe('Login Reducer', () => {
 
   it('should get all users', () => {
     const stubUsers = [
-        {id: 1, email: "swpp@snu.ac.kr", password: "1", 
-            name: "1", logged_in: true},
+        {id: 1, email: "swpp@snu.ac.kr", password: "iluvswpp", 
+            name: "Software Lover", logged_in: true},
         {id: 2, email: "swpp@snu.ac.kr", password: "2", 
             name: "2", logged_in: true},
         {id: 3, email: "swpp@snu.ac.kr", password: "3", 
@@ -69,8 +69,8 @@ describe('Login Reducer', () => {
         logged_in: true
       };
     const stubUsers = [
-        {id: 1, email: "swpp@snu.ac.kr", password: "1", 
-            name: "1", logged_in: true},
+        {id: 1, email: "swpp@snu.ac.kr", password: "iluvswpp", 
+            name: "Software Lover", logged_in: true},
         {id: 2, email: "swpp@snu.ac.kr", password: "2", 
             name: "2", logged_in: true},
         {id: 3, email: "swpp@snu.ac.kr", password: "3", 
@@ -87,8 +87,8 @@ describe('Login Reducer', () => {
     });
     expect(newState).toEqual({
         users: [
-          {id: 1, email: "swpp@snu.ac.kr", password: "1", 
-            name: "1", logged_in: true},
+          {id: 1, email: "swpp@snu.ac.kr", password: "iluvswpp", 
+          name: "Software Lover", logged_in: true},
         {id: 2, email: "swpp@snu.ac.kr", password: "2", 
             name: "2", logged_in: true},
         {id: 3, email: "swpp@snu.ac.kr", password: "3", 
@@ -116,8 +116,8 @@ describe('Login Reducer', () => {
   */
   it('should logout', () => {
     const stubUsers = [
-        {id: 1, email: "swpp@snu.ac.kr", password: "1", 
-            name: "1", logged_in: true},
+        {id: 1, email: "swpp@snu.ac.kr", password: "iluvswpp", 
+            name: "Software Lover", logged_in: true},
         {id: 2, email: "swpp@snu.ac.kr", password: "2", 
             name: "2", logged_in: true},
         {id: 3, email: "swpp@snu.ac.kr", password: "3", 
