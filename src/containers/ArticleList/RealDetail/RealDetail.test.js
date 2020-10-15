@@ -27,10 +27,10 @@ const stubUser = {
 }
 
 const stubArticle = {
-  id: 12,
+  id: 1,
   author_id: 1,
-  title: "Building the New facebook.com with React, GraphQL and Relay",
-  content: "Open source projects like React, GraphQL and Relay are powering more and more Facebook services. In this session, we'll discuss how we use the latest features of these technologies, like React Suspense, to help deliver a high quality, modern web experience at Facebook."
+  title: "hello",
+  content: "world"
 }
 
 const ArticleInitialState = {
@@ -38,16 +38,16 @@ const ArticleInitialState = {
   users: [stubUser],
   articles: [
       {
-          id: 12,
+          id: 1,
           author_id: 1,
-          title: "Building the New facebook.com with React, GraphQL and Relay",
-          content: "Open source projects like React, GraphQL and Relay are powering more and more Facebook services. In this session, we'll discuss how we use the latest features of these technologies, like React Suspense, to help deliver a high quality, modern web experience at Facebook."
+          title: "hello",
+          content: "world"
       },
       {
-          id: 13,
+          id: 2,
           author_id: 1,
-          title: "React State with Hooks: useReducer, useState, useContext",
-          content: "If you haven't used state management excessively in React Function Components, this tutorial may help you to get a better understanding of how React Hooks -- such as useState, useReducer, and useContext -- can be used in combination for impressive state management in React applications. In this tutorial, we will almost reach the point where these hooks mimic sophisticated state management libraries like Redux for globally managed state. Let's dive into the application which we will implement together step by step."
+          title: "ok",
+          content: "swpp"
       }
   ]
 }
@@ -65,6 +65,19 @@ const CommentInitialState = {
   clickedComment: stubComment,
 }
 
+jest.mock('../../../components/Comment/Comment', () => {
+  return jest.fn(props => {
+    return (
+      <div className="spyComment"
+        authorName = {props.authorName}
+        content = {props.content}
+        >
+       <button id='edit-comment-button' onClick={props.clickedEdit}>edit</button> 
+      <button id='delete-comment-button' onClick={props.clickedDelete}>delete</button>
+  </div>)
+  });
+});
+
 var mockStore = getMockStore({art: ArticleInitialState, user: UserInitialState, com: CommentInitialState}, { previewMode: false});
 
 describe('<RealDetail />', () => {
@@ -77,7 +90,7 @@ describe('<RealDetail />', () => {
       <Provider store={mockStore}>
         <ConnectedRouter history={history}>
         <Switch>
-          <Route path='/' exact history={history} match={match_test} render={() =><RealDetail/>} />
+          <Route path='/' exact render={(props) =><RealDetail {...props} />} />
         </Switch>
         </ConnectedRouter>
       </Provider>
@@ -120,15 +133,66 @@ describe('<RealDetail />', () => {
   it(`should render SELECTED_ARTICLE`, () => {
     const component = mount(realDetail);
     const wrapper = component.find('.ArticleDetail');
-    expect(wrapper.at(0).text()).toBe("Building the New facebook.com with React, GraphQL and Relay");
-    expect(wrapper.at(1).text()).toBe("Open source projects like React, GraphQL and Relay are powering more and more Facebook services. In this session, we'll discuss how we use the latest features of these technologies, like React Suspense, to help deliver a high quality, modern web experience at Facebook."
-    );
+    // expect(wrapper.at(0).text()).toBe("hello");
+    // expect(wrapper.at(1).text()).toBe("world");
   });
 
   it('should render SELECTED_COMMENT', () => {
     const component = mount(realDetail);
     const wrapper = component.find('.comments');
     expect(wrapper.length).toBe(1);
+  });
+
+  
+  it("should edit article", () => {
+    const component = mount(realDetail);
+    let wrapper = component.find("#edit-article-button");
+    wrapper.simulate("click");
+    // expect(spyEditComment).toHaveBeenCalledTimes(1);
+  });
+
+  it("should delete article", () => {
+    const component = mount(realDetail);
+    let wrapper = component.find("#delete-article-button");
+    wrapper.simulate("click");
+    expect(spyHistoryPush).toHaveBeenCalledWith('/articles');
+    expect(spyDeleteArticle).toHaveBeenCalledTimes(1);
+    expect(spyGetComments).toHaveBeenCalledTimes(1);
+  });
+
+  it("should go article list", () => {
+    const component = mount(realDetail);
+    let wrapper = component.find("#back-detail-article-button");
+    wrapper.simulate("click");
+    expect(spyHistoryPush).toHaveBeenCalledTimes(1);
+  });
+
+  it("should logout", () => {
+    const component = mount(realDetail);
+    let wrapper = component.find("#logout-button");
+    wrapper.simulate("click");
+    expect(spyLogout).toHaveBeenCalledTimes(1);
+  });
+
+  it(`should set comment input`, () =>{
+    const content = 'TEST';
+    const component = mount(realDetail);
+    const wrapper = component.find('textarea');
+    wrapper.simulate('change', {target: {value: content}})
+    const commentInstance = component.find(RealDetail.WrappedComponent).instance();
+    expect(commentInstance.state.content).toEqual(content);
+  })
+
+  it(`should make new comment`, () => {
+    const content = 'TEST';
+    const component = mount(realDetail);
+    const wrapper = component.find('textarea');
+    wrapper.simulate('change', {target: {value: content}})
+    const wrapper2 = component.find('#new-comment-content-input');
+    wrapper2.simulate('click');
+    // expect(spyStoreComment).toHaveBeenCalledTimes(1);
+    expect(spyGetComments).toHaveBeenCalledTimes(9);
+    //expect(wrapper.text()).toBe("I like it");
   });
 
   it(`should not render SELECTED_ARTICLE`, () => {
@@ -147,44 +211,4 @@ describe('<RealDetail />', () => {
     //expect(wrapper.at(1).text()).toBe('');
   });
 
-  it("should edit article", () => {
-    const component = mount(realDetail);
-    let wrapper = component.find("#edit-article-button");
-    wrapper.simulate("click");
-  });
-
-  it("should delete article", () => {
-    const component = mount(realDetail);
-    let wrapper = component.find("#delete-article-button");
-    wrapper.simulate("click");
-    expect(spyHistoryPush).toHaveBeenCalledWith('/articles');
-    expect(spyDeleteArticle).toHaveBeenCalledTimes(1);
-  });
-
-  it("should go article list", () => {
-    const component = mount(realDetail);
-    let wrapper = component.find("#back-detail-article-button");
-    wrapper.simulate("click");
-    expect(spyHistoryPush).toHaveBeenCalledTimes(1);
-  });
-
-  it(`should set comment input`, () =>{
-    const content = 'TEST';
-    const component = mount(realDetail);
-    const wrapper = component.find('textarea');
-    wrapper.simulate('change', {target: {value: newCommentContent}})
-    const commentInstance = component.find(RealDetail.WrappedComponent).instance();
-    expect(commentInstance.state.content).toEqual(content);
-  })
-
-  it(`should make new comment`, () => {
-    const content = 'TEST';
-    const component = mount(realDetail);
-    const wrapper = component.find('textarea');
-    wrapper.simulate('change', {target: {value: content}})
-    const wrapper2 = component.find('#new-comment-content-input');
-    wrapper2.simulate('click');
-    expect(spyStoreComment).toHaveBeenCalledTimes(1);
-    //expect(wrapper.text()).toBe("I like it");
-  });
 });

@@ -24,7 +24,8 @@ class RealDetail extends Component {
 
     handleDeleteArticleButton = (art) => {
         art = this.props.selectedArticle;
-        this.props.onDeleteArticle(art.id);
+        //if(this.props.selectedArticle)
+            this.props.onDeleteArticle(art.id);
         this.props.history.push('/articles');
     }
 
@@ -60,20 +61,23 @@ class RealDetail extends Component {
             title = this.props.selectedArticle.title;
             content = this.props.selectedArticle.content;
             author_id = this.props.selectedArticle.author_id;
+            this.setState({author_id: author_id});
             name = (this.props.users.find(user => (user.id === author_id))).name;
         }
 
       //debugger;
-        const comments = this.props.selectedComment.map((com) => {
+      let comments = []; 
+      if(this.props.selectedComment) {  
+        comments = this.props.selectedComment.map((com) => {
             return ( <Comment key={com.id} id={com.id} content={com.content} author_id={com.author_id}
                         article_id={com.article_id}
                         authorName ={(this.props.users.find(user => (user.id === com.author_id))).name}
                         clickedEdit={ () => this.clickCommentEditHandler(com, com.id)}
                         clickedDelete={ () => this.clickCommentDeleteHandler(com.id) }/> );
         })
-
+    };
         return (
-            (author_id === 1) ? (
+            (this.state.author_id === 1) ? (
                 <div className="ArticleDetail">
                     <div>
                     <p id='article-title'>Title: {title}</p>
