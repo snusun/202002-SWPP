@@ -52,13 +52,23 @@ const UserInitialState = {
     //previewMode: false
 }
 
-var mockStore = getMockStore({art: ArticleInitialState, user: UserInitialState});
+var mockStore = getMockStore({art: ArticleInitialState, user: UserInitialState}, { previewMode: false});
 
 describe("<NewArticle />", () => {
-    let createArticle, spyGetUsers, spyStoreArticle, spyLogout;
+    let createArticle, preview, spyGetUsers, spyStoreArticle, spyLogout;
     let spyHistoryPush; //let previewMode = false;
     beforeEach(() => {
         createArticle = (
+            <Provider store={mockStore}>
+                <ConnectedRouter history={history}>
+                    <Switch>
+                        <Route path='/' exact render={(props) =><NewArticle {...props}/>} /> 
+                    </Switch>
+                </ConnectedRouter>
+            </Provider>
+        );
+
+        preview = (
             <Provider store={mockStore}>
                 <ConnectedRouter history={history}>
                     <Switch>
@@ -83,26 +93,21 @@ describe("<NewArticle />", () => {
         spyHistoryPush = jest.spyOn(history, "push").mockImplementation(() => {
             return dispatch => { dispatch() };
         });
-
-        /*
-        spyAxios_post = jest
-            .spyOn(axios, "post")
-            .mockImplementation(() => Promise.resolve({}));
-            */
     });
 
     afterEach(() => {
         jest.clearAllMocks();
     });
 
-    it("should load properly", async () => {
+    it("should load properly", () => {
         const component = mount(createArticle);
         let wrapper = component.find(".NewArticle");
         expect(wrapper.length).toBe(1);
-        await expect(spyGetUsers).toBeCalledTimes(1);
+        //await expect(spyGetUsers).toBeCalledTimes(1);
         //expect(spyAxios_get).toHaveBeenCalledTimes(2);
     });
 
+    
     it("should load preview properly", () => {
         mockStore = getMockStore(ArticleInitialState, UserInitialState, {previewMode: true});
         const component = mount(preview);
@@ -110,9 +115,19 @@ describe("<NewArticle />", () => {
         expect(wrapper.length).toBe(0);
         //expect(spyAxios_get).toHaveBeenCalledTimes(2);
     });
+    
 
     it("should go back article list", () => {
+        mockStore = getMockStore(ArticleInitialState, UserInitialState, {previewMode: false});
         const component = mount(createArticle);
+        let wrapper = component.find(".NewArticle #back-create-article-button");
+        wrapper.simulate("click");
+        expect(spyHistoryPush).toHaveBeenCalledTimes(1);
+    });
+
+    it("should go back article list", () => {
+        mockStore = getMockStore(ArticleInitialState, UserInitialState, {previewMode: true});
+        const component = mount(preview);
         let wrapper = component.find(".NewArticle #back-create-article-button");
         wrapper.simulate("click");
         expect(spyHistoryPush).toHaveBeenCalledTimes(1);
@@ -122,12 +137,30 @@ describe("<NewArticle />", () => {
         const component = mount(createArticle);
         let wrapper = component.find(".NewArticle #confirm-create-article-button");
         wrapper.simulate("click");
-        expect(spyAxios_post).toHaveBeenCalledTimes(0);
+        //expect(spyAxios_post).toHaveBeenCalledTimes(0);
     });
 
-    it("should post preview mode", () => {
+    it("should change preview mode", () => {
         const component = mount(createArticle);
         let wrapper = component.find(".NewArticle #preview-tab-button");
+        wrapper.simulate("click");
+        //previewMode = true;
+        //expect(spyHistoryPush).toHaveBeenCalledTimes(1);
+    });
+
+    it("should change write mode", () => {
+        mockStore = getMockStore(ArticleInitialState, UserInitialState, {previewMode: false});
+        const component = mount(createArticle);
+        let wrapper = component.find(".NewArticle #write-tab-button");
+        wrapper.simulate("click");
+        //previewMode = true;
+        //expect(spyHistoryPush).toHaveBeenCalledTimes(1);
+    });
+
+    it("should change write mode", () => {
+        mockStore = getMockStore(ArticleInitialState, UserInitialState, {previewMode: true});
+        const component = mount(createArticle);
+        let wrapper = component.find(".NewArticle #write-tab-button");
         wrapper.simulate("click");
         //previewMode = true;
         //expect(spyHistoryPush).toHaveBeenCalledTimes(1);
