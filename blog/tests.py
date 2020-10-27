@@ -1,9 +1,12 @@
 from django.test import TestCase, Client
+from django.contrib.auth.models import User
 import json
 
-''' add trailing slash '''
-
 class BlogTestCase(TestCase):
+    def setUp(self):
+        User.objects.create_user(
+            username="test", email="testemail", password="testpassword")
+
     def test_csrf(self):
         # By default, csrf checks are disabled in test client
         # To test csrf protection we enforce csrf checks here
@@ -19,8 +22,20 @@ class BlogTestCase(TestCase):
                                content_type='application/json', HTTP_X_CSRFTOKEN=csrftoken)
         self.assertEqual(response.status_code, 201)  # Pass csrf protection
 
-'''
-    def test_user_model(self):
-        user = User.objects.get(username="test")
-        self.assertEqual(user.username, "test")
-        '''
+        #signin
+        response = client.post('/api/signin/', json.dumps({'username': 'chris', 'password': 'chris'}),
+                               content_type='application/json', HTTP_X_CSRFTOKEN=csrftoken)
+        self.assertEqual(response.status_code, 204)
+
+        response = client.post('/api/signin/', json.dumps({'username': 'chris', 'password': 'chris'}),
+                               content_type='application/json', HTTP_X_CSRFTOKEN=csrftoken)
+        self.assertEqual(response.status_code, 403)
+
+        #signout
+        response = client.post('/api/signout/', HTTP_X_CSRFTOKEN=csrftoken)
+        self.assertEqual(response.status_code, 403)
+
+
+    def test_user(self):
+        content = User.objects.get(username="test").__str__()
+        self.assertEqual(content, "test")
