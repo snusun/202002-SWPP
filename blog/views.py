@@ -77,12 +77,17 @@ def article(request, id):
                 return HttpResponse(status=404)
             article = get_article(request, id)
             if request.user.id == article.author.id:
+                body = request.body.decode()
+                article_title = json.loads(body)['title']
+                article_content = json.loads(body)['content']
+                '''
                 try:
                     body = request.body.decode()
                     article_title = json.loads(body)['title']
                     article_content = json.loads(body)['content']
                 except (KeyError, JSONDecodeError) as e:
                     return HttpResponseBadRequest()
+                '''
                 article = Article.objects.get(id=id)
                 article.title = article_title
                 article.content = article_content
@@ -150,12 +155,16 @@ def comment(request, id):
                 comment = Comment.objects.get(id=id)
             except Comment.DoesNotExist:
                 return HttpResponse(status=404)
-            if request.user.id == comment.author.id: 
+            if request.user.id == comment.author.id:
+                body = request.body.decode()
+                comment_content = json.loads(body)['content'] 
+                '''
                 try:
                     body = request.body.decode()
                     comment_content = json.loads(body)['content']
                 except (KeyError, JSONDecodeError) as e:
                     return HttpResponseBadRequest()
+                '''
                 comment.content = comment_content
                 comment.save()
                 response_dict = {"id": comment.id, "article": comment.article.id, "content": comment.content, "author": comment.author.id}
@@ -181,7 +190,7 @@ def get_article(request, id):
         try:
             return Article.objects.get(id=id)
         except Article.DoesNotExist:
-            return None
+            return HttpResponse(status=404)
 
 @ensure_csrf_cookie
 def token(request):

@@ -108,6 +108,29 @@ class BlogTestCase(TestCase):
         response = client.post('/api/comment/1/')
         self.assertEqual(response.status_code, 405)
 
+    #check 401(unauthorized)
+    def test_authentication(self):
+        client = Client()
+        response = client.post('/api/signin/', json.dumps({'username': 'test', 'password': 'testpassword'}),
+                                content_type='application/json')
+        self.assertEqual(response.status_code, 401)
+        
+        response = client.post('/api/article/', json.dumps({'title': 'test1', 'content': 'test'}),
+                                content_type='application/json')
+        self.assertEqual(response.status_code, 401)
+        
+        response = client.put('/api/article/1/', json.dumps({'title': 'test2', 'content': 'test'}),
+                                content_type='application/json')
+        self.assertEqual(response.status_code, 401)
+        
+        response = client.post('/api/article/1/comment/', json.dumps({'content': 'test1'}),
+                                content_type='application/json')
+        self.assertEqual(response.status_code, 401)
+        
+        response = client.put('/api/comment/1/', json.dumps({'content': 'test2'}),
+                                content_type='application/json') 
+        self.assertEqual(response.status_code, 401)
+
     def test_articleAndComment(self):
         client = Client()
 
@@ -214,3 +237,27 @@ class BlogTestCase(TestCase):
         #delete wrong comment
         response = client.delete('/api/comment/5/')
         self.assertEqual(response.status_code, 404)
+
+        #signin other user for testing unauthorized
+        response = client.post('/api/signin/', json.dumps({'username': 'test2', 'password': 'testpassword'}),
+                     content_type='application/json')
+        self.assertEqual(response.status_code, 204)
+
+        #check 403(unauthorized)
+        #edit article
+        response = client.put('/api/article/1/', json.dumps({'title': 'test', 'content': 'test'}),
+                                content_type='application/json')
+        self.assertEqual(response.status_code, 403)
+
+        #delete article
+        response = client.delete('/api/article/1/')
+        self.assertEqual(response.status_code, 403)
+        
+        #edit comment
+        response = client.put('/api/comment/1/', json.dumps({'content': 'test'}),
+                                content_type='application/json') 
+        self.assertEqual(response.status_code, 403)
+        
+        #delete comment
+        response = client.delete('/api/comment/1/')
+        self.assertEqual(response.status_code, 403)
