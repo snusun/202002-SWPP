@@ -1,5 +1,6 @@
 from django.test import TestCase, Client
 from django.contrib.auth.models import User
+from .models import Article, Comment
 import json
 
 class BlogTestCase(TestCase):
@@ -32,10 +33,82 @@ class BlogTestCase(TestCase):
         self.assertEqual(response.status_code, 403)
 
         #signout
+        response = client.get('/api/signout/', HTTP_X_CSRFTOKEN=csrftoken)
+        self.assertEqual(response.status_code, 204)
+
         response = client.post('/api/signout/', HTTP_X_CSRFTOKEN=csrftoken)
         self.assertEqual(response.status_code, 403)
 
+    #check 405(Method not allowed)
+    def test_method(self):
+        client = Client()
 
-    def test_user(self):
-        content = User.objects.get(username="test").__str__()
-        self.assertEqual(content, "test")
+        #get token
+        response = client.post('/api/token/')
+        self.assertEqual(response.status_code, 405)
+
+        response = client.put('/api/token/')
+        self.assertEqual(response.status_code, 405)
+
+        response = client.delete('/api/token/')
+        self.assertEqual(response.status_code, 405)
+
+        #signup
+        response = client.get('/api/signup/')
+        self.assertEqual(response.status_code, 405)
+        
+        response = client.put('/api/signup/')
+        self.assertEqual(response.status_code, 405)
+
+        response = client.delete('/api/signup/')
+        self.assertEqual(response.status_code, 405)      
+
+        #signin
+        response = client.get('/api/signin/')
+        self.assertEqual(response.status_code, 405)
+
+        response = client.put('/api/signin/')
+        self.assertEqual(response.status_code, 405)
+
+        response = client.delete('/api/signin/')
+        self.assertEqual(response.status_code, 405)
+
+        #signout
+        response = client.post('/api/signout/')
+        self.assertEqual(response.status_code, 405)
+        
+        response = client.put('/api/signout/')
+        self.assertEqual(response.status_code, 405)
+
+        response = client.delete('/api/signout/')
+        self.assertEqual(response.status_code, 405)
+
+        #singup and signin for article and comment
+        response = client.post('/api/signup/', json.dumps({'username': 'testuser', 'password': 'testpassword'}), 
+                                content_type='application/json')
+
+        response = client.post('/api/signin/', json.dumps({'username': 'testuser', 'password': 'testpassword'}),
+                                content_type='application/json')
+        
+        #articles
+        response = client.put('/api/article/')
+        self.assertEqual(response.status_code, 405)
+        
+        response = client.delete('/api/article/')
+        self.assertEqual(response.status_code, 405)
+
+        #article
+        response = client.post('/api/article/1/')
+        self.assertEqual(response.status_code, 405)
+        
+        #comments
+        response = client.put('/api/article/1/comment/')
+        self.assertEqual(response.status_code, 405)
+        
+        response = client.delete('/api/article/1/comment/')
+        self.assertEqual(response.status_code, 405)
+
+        #comment
+        response = client.post('/api/comment/1/')
+        self.assertEqual(response.status_code, 405)
+
