@@ -18,7 +18,7 @@ class BlogTestCase(TestCase):
         response = client.post('/api/signup/', json.dumps({'username': 'chris', 'password': 'chris'}),
                                content_type='application/json', HTTP_X_CSRFTOKEN=csrftoken)
         self.assertEqual(response.status_code, 201)  # Pass csrf protection
-
+        
         #signin
         response = client.post('/api/signin/', json.dumps({'username': 'chris', 'password': 'chris'}),
                                content_type='application/json', HTTP_X_CSRFTOKEN=csrftoken)
@@ -111,6 +111,7 @@ class BlogTestCase(TestCase):
     #check 401(unauthorized)
     def test_authentication(self):
         client = Client()
+
         response = client.post('/api/signin/', json.dumps({'username': 'test', 'password': 'testpassword'}),
                                 content_type='application/json')
         self.assertEqual(response.status_code, 401)

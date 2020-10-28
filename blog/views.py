@@ -75,7 +75,8 @@ def article(request, id):
                 article = Article.objects.get(id=id)
             except Article.DoesNotExist:
                 return HttpResponse(status=404)
-            article = get_article(request, id)
+            #article = Article.objects.get(id=id)
+            #article = get_article(request, id)
             if request.user.id == article.author.id:
                 body = request.body.decode()
                 article_title = json.loads(body)['title']
@@ -101,7 +102,7 @@ def article(request, id):
                 article = Article.objects.get(id=id)
             except Article.DoesNotExist:
                 return HttpResponse(status=404)
-            article = get_article(request, id)
+            #article = get_article(request, id)
             if request.user.id == article.author.id:
                 article = Article.objects.get(id=id) # maybe delete this line
                 article.delete() 
@@ -121,7 +122,7 @@ def comments(request, id):
                 article = Article.objects.get(id=id)
             except Article.DoesNotExist:
                 return HttpResponse(status=404)
-            comments = [{"article": comment.article.id, "content": comment.content, "author": comment.author.id} for comment in Comment.objects.filter(article = get_article(request, id))]
+            comments = [{"article": comment.article.id, "content": comment.content, "author": comment.author.id} for comment in Comment.objects.filter(article = article)]
             return JsonResponse(comments, safe=False)
         elif request.method == 'POST':
             try:
@@ -129,7 +130,7 @@ def comments(request, id):
             except Article.DoesNotExist:
                 return HttpResponse(status=404)
             req_data = json.loads(request.body.decode())
-            article = get_article(request, id)
+            #article = get_article(request, id)
             content = req_data['content']
             author = request.user
             comment = Comment(article=article, content=content, author=author)
@@ -186,11 +187,13 @@ def comment(request, id):
     else:
         return HttpResponse(status=401)
 
+'''
 def get_article(request, id):
         try:
             return Article.objects.get(id=id)
         except Article.DoesNotExist:
             return HttpResponse(status=404)
+'''
 
 @ensure_csrf_cookie
 def token(request):
