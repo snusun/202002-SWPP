@@ -116,20 +116,38 @@ class BlogTestCase(TestCase):
                                 content_type='application/json')
         self.assertEqual(response.status_code, 401)
         
+        response = client.get('/api/article/')
+        self.assertEqual(response.status_code, 401)
+
         response = client.post('/api/article/', json.dumps({'title': 'test1', 'content': 'test'}),
                                 content_type='application/json')
         self.assertEqual(response.status_code, 401)
         
+        response = client.get('/api/article/1/')
+        self.assertEqual(response.status_code, 401)
+
         response = client.put('/api/article/1/', json.dumps({'title': 'test2', 'content': 'test'}),
                                 content_type='application/json')
         self.assertEqual(response.status_code, 401)
+
+        response = client.delete('/api/article/1/')
+        self.assertEqual(response.status_code, 401)
         
+        response = client.get('/api/article/1/comment/')
+        self.assertEqual(response.status_code, 401)
+
         response = client.post('/api/article/1/comment/', json.dumps({'content': 'test1'}),
                                 content_type='application/json')
         self.assertEqual(response.status_code, 401)
         
+        response = client.get('/api/comment/1/') 
+        self.assertEqual(response.status_code, 401)
+
         response = client.put('/api/comment/1/', json.dumps({'content': 'test2'}),
                                 content_type='application/json') 
+        self.assertEqual(response.status_code, 401)
+
+        response = client.delete('/api/comment/1/') 
         self.assertEqual(response.status_code, 401)
 
     def test_articleAndComment(self):
