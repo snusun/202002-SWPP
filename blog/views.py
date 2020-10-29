@@ -34,7 +34,7 @@ def signin(request):
 
 def signout(request):
     if request.method == 'GET':
-        if request is not None:
+        if request.user.is_authenticated:
             auth.logout(request)
             return  HttpResponse(status=204)
         else: 

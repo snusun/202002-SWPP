@@ -15,6 +15,10 @@ class BlogTestCase(TestCase):
         response = client.get('/api/token/')
         csrftoken = response.cookies['csrftoken'].value  # Get csrf token from cookie
 
+        #check signout 401
+        response = client.get('/api/signout/', HTTP_X_CSRFTOKEN=csrftoken)
+        self.assertEqual(response.status_code, 401)
+
         response = client.post('/api/signup/', json.dumps({'username': 'chris', 'password': 'chris'}),
                                content_type='application/json', HTTP_X_CSRFTOKEN=csrftoken)
         self.assertEqual(response.status_code, 201)  # Pass csrf protection
